@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User</title>
+    <!-- Bootstrap CSS para estilos -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/cyborg/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center">Edit User</h1>
+        <!-- Formulario para editar un usuario -->
+        <form action="{{ url_for('edit_user', user_id=user.id) }}" method="post">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <!-- Campo para el nombre de usuario -->
+                <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <!-- Campo para el correo electrónico -->
+                <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password (leave blank to keep current password)</label>
+                <!-- Campo para la contraseña (opcional) -->
+                <input type="password" class="form-control" id="password" name="password">
+            </div>
+            <!-- Botón para enviar el formulario -->
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </div>
+</body>
+</html>

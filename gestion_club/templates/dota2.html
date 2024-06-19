@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dota 2 Players</title>
+
+    <!-- Bootstrap CSS para estilos -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/cyborg/bootstrap.min.css"
+          integrity="sha384-nEnU7Ae+3lD52AK+RGNzgieBWMnEfgTbRHIwEvp1XXPdqdO6uLTd/NwXbzboqjc2"
+          crossorigin="anonymous">
+
+    <!-- Chart.js para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center">Dota 2 Players</h1>
+        <!-- Canvas para el gráfico de jugadores -->
+        <canvas id="playersChart" width="400" height="200"></canvas>
+    </div>
+
+    <script>
+        // Ejecutar cuando el contenido del DOM esté completamente cargado
+        document.addEventListener('DOMContentLoaded', function () {
+            // Obtener el contexto del canvas donde se dibujará el gráfico
+            var ctx = document.getElementById('playersChart').getContext('2d');
+            // Convertir la variable players en un objeto JavaScript
+            var players = {{ players | tojson | safe }};
+            console.log(players);  // Añade un console.log para depurar los datos
+            // Mapear los nombres y puntuaciones de los jugadores para usarlos en el gráfico
+            var labels = players.map(function (player) { return player.name; });
+            var scores = players.map(function (player) { return player.score; });
+
+            // Crear un nuevo gráfico de barras usando Chart.js
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,  // Nombres de los jugadores como etiquetas del eje x
+                    datasets: [{
+                        label: 'Puntuación',  // Etiqueta del conjunto de datos
+                        data: scores,  // Puntuaciones de los jugadores
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',  // Color de fondo de las barras
+                        borderColor: 'rgba(54, 162, 235, 1)',  // Color del borde de las barras
+                        borderWidth: 1  // Ancho del borde de las barras
+                    }]
+                },
+                options: {
+                    responsive: true,  // Hacer el gráfico responsivo
+                    plugins: {
+                        legend: {
+                            position: 'top',  // Posición de la leyenda
+                        },
+                        title: {
+                            display: true,  // Mostrar el título del gráfico
+                            text: 'Dota 2 Player Scores'  // Texto del título del gráfico
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true  // Comenzar el eje y en cero
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

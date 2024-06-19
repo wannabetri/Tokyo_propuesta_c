@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Results</title>
+    <!-- Bootstrap CSS para estilos -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center">Results for {{ game.name }}</h1>
+        <!-- Formulario para añadir resultados -->
+        <form action="{{ url_for('game_results', game_id=game.id) }}" method="POST" class="mt-4">
+            <div class="form-group">
+                <label for="participant_id">Participant ID:</label>
+                <input type="number" id="participant_id" name="participant_id" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="score">Score:</label>
+                <input type="number" id="score" name="score" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="time">Time (seconds):</label>
+                <input type="number" id="time" name="time" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Result</button>
+        </form>
+        <h2 class="mt-4">Results</h2>
+        <!-- Lista de resultados -->
+        <ul class="list-group">
+            {% for result in results %}
+                <li class="list-group-item">Participant ID: {{ result.participant_id }}, Score: {{ result.score }}, Time: {{ result.time.total_seconds() }} seconds</li>
+            {% endfor %}
+        </ul>
+        <!-- Enlace para ver estadísticas -->
+        <a href="{{ url_for('game_stats', game_id=game.id) }}" class="btn btn-secondary mt-3">View Stats</a>
+    </div>
+    <!-- Bootstrap JS y dependencias -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rankings</title>
+
+    <!-- Bootstrap CSS para estilos -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/cyborg/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center">Rankings</h1>
+        <!-- Tabla de Rankings -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Username</th>
+                    <th>Game</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rank, participant in enumerate(rankings, start=1) %}
+                    <tr>
+                        <td>{{ rank }}</td>
+                        <td>{{ participant.user.username }}</td>
+                        <td>{{ participant.game.name }}</td>
+                        <td>{{ session.query(Result).filter_by(participant_id=participant.id).first().score if session.query(Result).filter_by(participant_id=participant.id).first() else "No score yet" }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Bootstrap JS y dependencias -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
