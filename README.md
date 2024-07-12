@@ -51,5 +51,5 @@ Este proyecto es una aplicación web desarrollada en Flask para gestionar torneo
 
 1. **Clonar el repositorio:**
    ```sh
-   git clone https://github.com/tu_usuario/tu_proyecto.git
-   cd tu_proyecto
+   git clone https:https://github.com/wannabetri/Tokyo_propuesta_c.git
+   cd Tokyo_propuesta_c
